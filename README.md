@@ -1,94 +1,103 @@
-# THRESHOLDING
+# Implementation of Huffman-Coding
 ## Aim
-To segment the image using global thresholding, adaptive thresholding and Otsu's thresholding using python and OpenCV.
+To implement Huffman coding to compress the data using Python.
 
 ## Software Required
 1. Anaconda - Python 3.7
-2. OpenCV
 
-## Algorithm
-
+## Algorithm:
 ### Step1:
-<br>
+Get the input string.
+
 
 ### Step2:
-<br>
+Create tree nodes.
+
 
 ### Step3:
-<br>
+Main function to implement huffman coding.
+
+
 
 ### Step4:
-<br>
+Calculate frequency of occurence.
+
 
 ### Step5:
-<br>
-
-## Program
-
-```python
-# Load the necessary packages
+Print the characters and its HuffmanCode.
 
 
+ 
+## Program:
+```
+Developed By : Krishna Prasad S
+Register No. : 212223230108
+```
+
+``` Python
+
+# Get the input String
+string = "Krishna Prasad"
+
+
+# Create tree nodes
+class NodeTree(object):
+    def __init__(self, left=None, right=None): 
+        self.left = left
+        self.right=right
+    def children(self):
+        return (self.left,self.right)
+    def nodes (self):
+        return (self.left,self.right)
+    def __str__(self):
+        return '%s %s' %(self.left,self.right)
+
+
+# Main function to implement huffman coding
+def huffman_code_tree(node, left=True, binString=''):
+    if type(node) is str:
+        return {node: binString}
+    (l, r) = node.children()
+    d = dict()
+    d.update(huffman_code_tree (l, True, binString + '0'))
+    d.update(huffman_code_tree (r, False, binString + '1'))
+    return d
+
+
+# Calculate frequency of occurrence
+freq = {}
+for c in string:
+    if c in freq:
+        freq[c] += 1
+    else:
+        freq[c] = 1
+freq = sorted(freq.items(), key=lambda x: x[1], reverse=True)
+nodes=freq
+
+while len(nodes)>1:
+    (key1,c1)=nodes[-1]
+    (key2,c2)=nodes[-2]
+    nodes = nodes[:-2]
+    node = NodeTree (key1, key2)
+    nodes.append((node,c1 + c2))
+    nodes = sorted (nodes, key=lambda x: x[1], reverse=True)
 
 
 
-# Read the Image and convert to grayscale
-
-
-
-
-# Use Global thresholding to segment the image
-
-
-
-
-# Use Adaptive thresholding to segment the image
-
-
-
-
-# Use Otsu's method to segment the image 
-
-
-
-
-# Display the results
-
-
-
-
+# Print the characters and its huffmancode
+huffmanCode=huffman_code_tree(nodes[0][0])
+print(' Char | Huffman code ') 
+print('----------------------')
+for (char, frequency) in freq:
+    print('%-4r|%12s'%(char,huffmanCode[char]))
 
 ```
-## Output
+## Output:
 
-### Original Image
-<br>
-<br>
-<br>
-<br>
-<br>
+### The characters and its huffmancode
+![alt text](output.png)
 
-### Global Thresholding
-<br>
-<br>
-<br>
-<br>
-<br>
-
-### Adaptive Thresholding
-<br>
-<br>
-<br>
-<br>
-<br>
-
-### Optimum Global Thesholding using Otsu's Method
-<br>
-<br>
-<br>
-<br>
-<br>
 
 
 ## Result
-Thus the images are segmented using global thresholding, adaptive thresholding and optimum global thresholding using python and OpenCV.
+Thus the huffman coding was implemented to compress the data using python programming.
